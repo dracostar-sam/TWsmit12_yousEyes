@@ -1,0 +1,88 @@
+﻿@model WebApplication1.ViewModels.ItemDetailViewModel
+
+@{
+    ViewBag.Title = "商品資料-" + Model.Data.Name;
+}
+
+<link href="~/css/product.css" rel="stylesheet">
+
+<div id="ccc">
+    <div class="anyamain">
+        <div class="anyaproduct">
+            <br />
+            @*商品照片*@
+            <img class="picpic" src="@Html.Encode(Url.Content("~/Upload/" + Model.Data.Image))" />
+            <br />
+        </div>
+
+        <div class="anyaaside">
+            @*商品名稱*@
+            <h1>@Model.Data.Name</h1>
+            <div class="detail">
+                <div class="anyaprice">
+                    @*顯示價格欄位名稱及資料*@
+                    @Html.DisplayNameFor(model => model.Data.Price)：
+                    @Html.DisplayTextFor(model => model.Data.Price)
+                </div>
+                <br><br>
+                <div>
+                    <P>商品狀態: 貨源稀缺</P>
+                </div>
+            </div>
+            <br>
+            <div class="anyadescription">
+                <p>
+                    ★英國皇室御用
+                    ★英國百年經典品牌
+                    ★歐洲奢華精品先驅
+                </p>
+            </div>
+            <br><br>
+            <div>
+                <label for="qty">數量</label>
+                <select name="qty" style="font-size:large">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+                <br><br>
+                <br />
+                @*限制須使用者登入才顯示購物車功能*@
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (Model.InCart)
+                    {
+                        <text>已經於購物車中了，從購物車中</text>
+                        <div class="takeProduct">
+                            @Html.ActionLink("取出商品", "Pop", "Cart"
+                                                   , new { Id = Model.Data.Id, toPage = "Item" }, null)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="anyacheckup">
+                            @Html.ActionLink("放入購物車中", "Put", "Cart"
+   , new { Id = Model.Data.Id, toPage = "Item" }, null)
+                    </div>
+                }
+                if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("刪除商品", "Delete"
+                        , new { Id = Model.Data.Id })
+                }
+            }
+            @*若無登入狀態，無法使用此功能，顯示登入超連結*@
+            else
+            {
+                <text>要使用購物車請先</text>
+                @Html.ActionLink("登入", "Login", "Members")
+            }
+            </div>
+            <br>
+            <br>
+            <p style="color: gray; font-style: italic; font-size: large;">Digital eye Shop</p>
+            <br><br><br><br><br>
+        </div>
+    </div>
+</div>
