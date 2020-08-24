@@ -8,9 +8,9 @@ namespace WebApplication1.Services
 {
     public class MailService
     {
-        private string gmail_account = "smit12glasses"; //Gmail帳號
-        private string gmail_password = "doihbywfjudbdwsq"; //Gmail密碼
-        private string gmail_mail = "smit12glasses@gmail.com"; //Gmail信箱
+        private string gmail_account = "XXXXXXXX.gmail"; //Gmail帳號
+        private string gmail_password = "xxxxxxxxx"; //Gmail密碼
+        private string gmail_mail = "xxxxxxxxxxxxxx@gmail.com"; //Gmail信箱
 
         #region 寄會員驗證信
         //產生驗證碼方法
